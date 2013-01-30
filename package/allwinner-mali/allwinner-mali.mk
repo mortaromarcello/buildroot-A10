@@ -9,7 +9,7 @@ ALLWINNER_MALI_INSTALL_STAGING = YES
 ALLWINNER_MALI_INSTALL_TARGET = YES
 
 define ALLWINNER_MALI_INSTALL_STAGING_CMDS
-	$(MAKE) -C $(@D) VERSION=r3p0 ABI=armhf prefix=$(STAGING_DIR)/usr/ framebuffer
+	$(MAKE) -C $(@D) VERSION=r3p0 ABI=armhf prefix=$(STAGING_DIR)/usr/ x11
 	$(MAKE) -C $(@D) prefix=$(STAGING_DIR)/usr/ headers
 	install -m 666 $(@D)/Mali_OpenGL_ES_2.0_SDK_for_Linux_On_ARM_v1.2.0/simple-framework/inc/mali/EGL/fbdev_window.h \
 		 $(STAGING_DIR)/usr/include/EGL/
@@ -20,7 +20,7 @@ define ALLWINNER_MALI_INSTALL_STAGING_CMDS
 endef
 
 define ALLWINNER_MALI_INSTALL_TARGET_CMDS
-	$(MAKE) -C $(@D) VERSION=r3p0 ABI=armhf prefix=$(TARGET_DIR)/usr/ framebuffer
+	$(MAKE) -C $(@D) VERSION=r3p0 ABI=armhf prefix=$(TARGET_DIR)/usr/ x11
 endef
 
 define ALLWINNER_MALI_BUILD_CMDS
