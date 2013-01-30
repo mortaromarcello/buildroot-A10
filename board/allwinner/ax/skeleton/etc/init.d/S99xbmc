@@ -1,0 +1,71 @@
+#!/bin/sh
+
+modprobe ump
+modprobe mali
+modprobe cfbfillrect
+modprobe cfbimgblt
+modprobe cfbcopyarea
+modprobe disp
+modprobe lcd
+modprobe hdmi
+
+export XBMC_BASE=/opt/xbmc
+export XBMC_HOME=/opt/xbmc/share/xbmc
+export PATH=$PATH:/opt/xbmc/bin
+export HOME=/root
+
+XRES=1280
+YRES=720
+VXRES=1280
+VYRES=1440
+DEPTH=32
+
+export LD_LIBRARY_PATH=$XBMC_BASE/lib:/usr/lib/mysql:$LD_LIBRARY_PATH
+
+case "$1" in
+        start)
+                echo 'Starting xbmc'
+    		echo 0 >  /sys/class/vtconsole/vtcon1/bind
+    		fbset -xres ${XRES} -yres ${YRES} -vxres ${VXRES} -vyres ${VYRES} -depth ${DEPTH}
+    		until /opt/xbmc/lib/xbmc/xbmc.bin -standalone -fs; do
+			exit_value=$?
+            		case "$exit_value" in
+              			0)   	echo "XBMC exit" >&2
+                   			exit $exit_value
+                   			;;
+              			64)  	echo "XBMC exit with shutdown" >&2
+                   			poweroff
+                   			exit $exit_value
+                   			;;
+              			66)  	echo "XBMC exit with reboot" >&2
+                   			reboot
+                   			exit $exit_value
+                   			;;
+              			137) 	echo "XBMC was killed" >&2
+                   			dd if=/dev/zero of=/dev/fb0 bs=1280 count=2880 > /dev/null 2>&1
+                   			exit $exit_value
+                   			;;
+              			143) 	echo "XBMC was terminated" >&2
+                   			dd if=/dev/zero of=/dev/fb0 bs=1280 count=2880 > /dev/null 2>&1
+                   			exit $exit_value
+                   			;;
+            		esac
+            		echo "XBMC crashed with exit code $exit_value.  Respawning.." >&2
+            		sleep 1
+        	done
+		;;
+        stop)
+                echo 'Stopping xbmc'
+    		pkill xbmc.bin
+    		echo 1 >  /sys/class/vtconsole/vtcon1/bind
+                ;;
+        restart)
+                $0 stop
+                sleep 1
+                $0 start
+                ;;
+        *)
+                echo "usage: $0 {start|stop|restart}"
+esac
+exit 0
+

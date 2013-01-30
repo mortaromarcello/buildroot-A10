@@ -1,0 +1,65 @@
+This buildroot is for xbmc development for the Allwinner A10.
+
+The buildroot is based on upstream buildroot git : bce34ab199dea7e8430971ae31d743e246049785
+
+Requirements for ubuntu :
+
+  apt-get install build-essential libssl-dev git libncurses-dev bison flex texinfo zlib1g-dev gettext autoconf patch
+
+Getting buildroot :
+
+  mkdir /opt/xbmc-dev
+  cd /opt/xbmc-dev
+  export BUILDROOT=/opt/xbmc-dev/buildroot
+  git clone https://github.com/j1nx/buildroot-A10.git buildroot
+
+Building buildroot :
+
+  cd $BUILDROOT
+
+  make allwinner_defconfig
+  make
+
+Output of buildroot is located at :
+
+  $BUILDROOT/output/images/
+
+  There you find the necessary binary files and the rootfs for the PI.
+
+Getting xbmc :
+
+  cd /opt/xbmc-dev
+  git clone https://github.com/huceke/xbmc.git
+  cd /opt/xbmc-dev/xbmc
+  git checkout allwinner
+
+  vi tools/allwinner/setup-sdk.sh
+
+  Change the buildroot location after "USE_BUILDROOT==1" case to :
+
+    BUILDROOT=/opt/xbmc-dev/buildroot
+    XBMCPREFIX=/opt/xbmc
+  
+  mkdir -p /opt/xbmc
+  chmod 755 /opt/xbmc
+
+  Run tools/allwinner/setup-sdk.sh by:
+
+  sh tools/allwinner/setup-sdk.sh
+
+  make -C tools/allwinner/depends/xbmc
+  make
+  make install
+
+  Xbmc binaries and depends are install in /opt/xbmc
+
+Buildroot hints :
+
+  User      : root
+  Password  : xbmc
+
+  If libnfs fails to build :
+  
+  rm -rf rm -rf output/build/libnfs-345422a2e32b22119054224003655468771b15fc
+  make libnfs
+  make
