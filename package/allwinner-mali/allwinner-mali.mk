@@ -3,8 +3,8 @@
 # allwinner-mali
 #
 #############################################################
-ALLWINNER_MALI_VERSION = 1.2.0.9310
-ALLWINNER_MALI_SITE = http://malideveloper.arm.com/downloads
+ALLWINNER_MALI_VERSION = 2caa5d9c4880cf10225790a9f806c97a8f534372
+ALLWINNER_MALI_SITE = git://github.com/linux-sunxi/mali-libs.git
 ALLWINNER_MALI_INSTALL_STAGING = YES
 ALLWINNER_MALI_INSTALL_TARGET = YES
 
@@ -25,8 +25,8 @@ endef
 
 define ALLWINNER_MALI_BUILD_CMDS
 	wget -c http://malideveloper.arm.com/downloads/Mali_OpenGL_ES_2.0_SDK_for_Linux_On_ARM_v1.2.0.9310_Linux.tar.gz \
-			-O $(BUILDROOT_DL_DIR)dl/Mali_OpenGL_ES_2.0_SDK_for_Linux_On_ARM_v1.2.0.9310_Linux.tar.gz
-	tar -xzvf $(BUILDROOT_DL_DIR)dl/Mali_OpenGL_ES_2.0_SDK_for_Linux_On_ARM_v1.2.0.9310_Linux.tar.gz -C $(@D)
+			-O $(BUILDROOT_DL_DIR)/Mali_OpenGL_ES_2.0_SDK_for_Linux_On_ARM_v1.2.0.9310_Linux.tar.gz
+	tar -xzvf $(BUILDROOT_DL_DIR)/Mali_OpenGL_ES_2.0_SDK_for_Linux_On_ARM_v1.2.0.9310_Linux.tar.gz -C $(@D)
 endef
 
 $(eval $(generic-package))
