@@ -24,12 +24,12 @@ define LIBUMP_INSTALL_TARGET_CMDS
 endef
 
 define LIBUMP_BUILD_CMDS
-	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/arch_011_udd/ump_frontend.c -o $(@D)/arch_011_udd/ump_frontend.o -I$(@D)/include/ump
-	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/arch_011_udd/ump_ref_drv.c -o $(@D)/arch_011_udd/ump_ref_drv.o -I$(@D)/include/ump
-	$(TARGET_CC) $(TARGET_CFLAGS) -fPIC -c $(@D)/arch_011_udd/ump_arch.c -o $(@D)/arch_011_udd/ump_arch.o -I$(@D)/include/ump
-	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/os/linux/ump_uku.c -o $(@D)/os/linux/ump_uku.o -I$(@D)/include/ump
-	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/os/linux/ump_osu_memory.c -o $(@D)/os/linux/ump_osu_memory.o -I$(@D)/include/ump
-	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/os/linux/ump_osu_locks.c -o $(@D)/os/linux/ump_osu_locks.o -I$(@D)/include/ump
+	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/arch_011_udd/ump_frontend.c -o $(@D)/arch_011_udd/ump_frontend.o -I$(@D)/include
+	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/arch_011_udd/ump_ref_drv.c -o $(@D)/arch_011_udd/ump_ref_drv.o -I$(@D)/include
+	$(TARGET_CC) $(TARGET_CFLAGS) -fPIC -c $(@D)/arch_011_udd/ump_arch.c -o $(@D)/arch_011_udd/ump_arch.o -I$(@D)/include
+	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/os/linux/ump_uku.c -o $(@D)/os/linux/ump_uku.o -I$(@D)/include
+	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/os/linux/ump_osu_memory.c -o $(@D)/os/linux/ump_osu_memory.o -I$(@D)/include
+	$(TARGET_CC) $(TARGET_CFLAGS) -c $(@D)/os/linux/ump_osu_locks.c -o $(@D)/os/linux/ump_osu_locks.o -I$(@D)/include
 	$(TARGET_CC) $(TARGET_CFLAGS) -shared -o $(@D)/libUMP.so \
 					$(@D)/arch_011_udd/ump_frontend.o \
 					$(@D)/arch_011_udd/ump_ref_drv.o \
