@@ -1,0 +1,11 @@
+--- libdrm/xf86drm.h	2009-12-05 12:01:56.000000000 +0100
++++ libdrm/xf86drm.h	2013-01-31 19:44:53.483767697 +0100
+@@ -37,7 +37,7 @@
+ #include <stdarg.h>
+ #include <sys/types.h>
+ #include <stdint.h>
+-#include <drm.h>
++#include <drm/drm.h>
+ 
+ #ifndef DRM_MAX_MINOR
+ #define DRM_MAX_MINOR   16
